@@ -1,0 +1,187 @@
+[
+    {
+        "id": "dafb1bd5.d94b18",
+        "type": "tab",
+        "label": "Chatbot",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "2e0daa0d.9297a6",
+        "type": "function",
+        "z": "dafb1bd5.d94b18",
+        "name": "",
+        "func": "msg.payload=msg.payload.input;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 230,
+        "y": 200,
+        "wires": [
+            [
+                "3411d4c3.25813c",
+                "b850cab2.e6d888"
+            ]
+        ]
+    },
+    {
+        "id": "3411d4c3.25813c",
+        "type": "watson-conversation-v1",
+        "z": "dafb1bd5.d94b18",
+        "name": "",
+        "workspaceid": "1b8a9a24-89fd-44d2-b573-6dd94260af56",
+        "multiuser": false,
+        "context": false,
+        "empty-payload": false,
+        "service-endpoint": "https://api.eu-gb.assistant.watson.cloud.ibm.com/instances/5556842b-de06-4598-85cf-218458e5d7c0",
+        "timeout": "",
+        "optout-learning": false,
+        "x": 400,
+        "y": 120,
+        "wires": [
+            [
+                "f7637f97.107a5",
+                "d25e57b3.ff5c48"
+            ]
+        ]
+    },
+    {
+        "id": "f7637f97.107a5",
+        "type": "function",
+        "z": "dafb1bd5.d94b18",
+        "name": "",
+        "func": "msg.payload.text=\"\";\nif(msg.payload.context.webhook_result_1){\n for(var i in msg.payload.context.webhook_result_1.results){\n msg.payload.text=msg.payload.text+\"\\n\"+msg.payload.context.webhook_result_1.results[i].text;\n}\n msg.payload=msg.payload.text;\n}\nelse msg.payload=msg.payload.output.text[0];\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 570,
+        "y": 220,
+        "wires": [
+            [
+                "f5cae72f.5a2cc8"
+            ]
+        ]
+    },
+    {
+        "id": "d25e57b3.ff5c48",
+        "type": "debug",
+        "z": "dafb1bd5.d94b18",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "x": 570,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "41626827.2a4fa8",
+        "type": "ui_form",
+        "z": "dafb1bd5.d94b18",
+        "name": "",
+        "label": "",
+        "group": "7b9462f7.06867c",
+        "order": 1,
+        "width": "0",
+        "height": "0",
+        "options": [
+            {
+                "label": "Enter query",
+                "value": "input",
+                "type": "text",
+                "required": true,
+                "rows": null
+            }
+        ],
+        "formValue": {
+            "input": ""
+        },
+        "payload": "",
+        "submit": "submit",
+        "cancel": "cancel",
+        "topic": "",
+        "x": 100,
+        "y": 280,
+        "wires": [
+            [
+                "2e0daa0d.9297a6"
+            ]
+        ],
+        "icon": "node-red/watch.svg"
+    },
+    {
+        "id": "b850cab2.e6d888",
+        "type": "ui_text",
+        "z": "dafb1bd5.d94b18",
+        "group": "6abfdda0.83a174",
+        "order": 1,
+        "width": "0",
+        "height": "0",
+        "name": "",
+        "label": "",
+        "format": "{{msg.payload}}",
+        "layout": "col-center",
+        "x": 390,
+        "y": 320,
+        "wires": []
+    },
+    {
+        "id": "f5cae72f.5a2cc8",
+        "type": "ui_text",
+        "z": "dafb1bd5.d94b18",
+        "group": "3ef28a9e.0c7ca6",
+        "order": 4,
+        "width": "18",
+        "height": "18",
+        "name": "",
+        "label": "",
+        "format": "{{msg.payload}}",
+        "layout": "col-center",
+        "x": 770,
+        "y": 240,
+        "wires": []
+    },
+    {
+        "id": "7b9462f7.06867c",
+        "type": "ui_group",
+        "z": "",
+        "name": "Queries",
+        "tab": "485f9e36.11cee",
+        "order": 1,
+        "disp": true,
+        "width": "18",
+        "collapse": false
+    },
+    {
+        "id": "6abfdda0.83a174",
+        "type": "ui_group",
+        "z": "",
+        "name": " User Input",
+        "tab": "485f9e36.11cee",
+        "order": 2,
+        "disp": true,
+        "width": "18",
+        "collapse": false
+    },
+    {
+        "id": "3ef28a9e.0c7ca6",
+        "type": "ui_group",
+        "z": "",
+        "name": "Response",
+        "tab": "485f9e36.11cee",
+        "order": 3,
+        "disp": true,
+        "width": "18",
+        "collapse": false
+    },
+    {
+        "id": "485f9e36.11cee",
+        "type": "ui_tab",
+        "z": "",
+        "name": "Welcome!",
+        "icon": "dashboard",
+        "disabled": false,
+        "hidden": false
+    }
+]
